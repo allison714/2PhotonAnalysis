@@ -105,7 +105,7 @@ xlim([-150 150])
 miny = round(round(min(info.analysis{1, 1}.respMatPlot(:)),1 )* 2) / 2;
 maxy = round(max(info.analysis{1, 1}.respMatPlot(:)) * 2) / 2;
 ylim([miny maxy])
-title(['Stim Duration: ', num2str(epochDur(jjj)),' (s)'], 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
+title({['Stim Duration: ', num2str(epochDur(jjj)),' (s)'],['Velocity: ',num2str(delPos(jjj))}, 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 sgtitle({['LC14 > GC7b || Flies: ', num2str(info.analysis{1,1}.numFlies)], param.stim}, 'FontSize', 14, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 xlabel('$x^\circ$','FontSize', 16, 'Interpreter', 'latex');
 ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$','FontSize', 20, 'Interpreter', 'latex');

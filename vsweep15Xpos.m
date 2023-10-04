@@ -1,4 +1,14 @@
-function [Fig_02, pos0, delPos, stimPos, stimEndPos] = vsweep15Xpos(TimeXs, data, errorBars,  exp, info, param, stim, epochNames, legDur, colors)
+function [Fig_02] = vsweep15Xpos(exp, info, param)
+% Data
+t_s = info.analysis{1, 1}.timeX / 1000;  % ms to s
+data = info.analysis{1, 1}.respMatPlot;
+errorBars = info.analysis{1, 1}.respMatSemPlot;
+nEpochs = length(data(1,:));
+epochNames = cellstr(exp.param_file(3, 3:end)); % do I want to do this like how I did epochDur instead
+epochProbeDur = [exp.params(:).duration];
+epochDur = epochProbeDur(param.interleave_epochs+1:end);
+colors = linspecer(nEpochs,'sequential');
+
 pos0 = [exp.params(:).relativeX];
 pos0 = pos0(param.interleave_epochs+1:end);
 delPos = [exp.params(:).dX];
@@ -12,8 +22,8 @@ stimEndPos = ones(length(delPos),1);
 Fig_02 = figure('Units', 'normalized', 'OuterPosition', [0, 0, 1, 1]);
 
 for jj = 1:length(delPos)
-    stimPos{1,jj} = pos0(jj) + TimeXs * delPos(jj);
-    stimEndPos(jj) = pos0(jj) + (legDur(jj)/60) .* delPos(jj);
+    stimPos{1,jj} = pos0(jj) + t_s * delPos(jj);
+    stimEndPos(jj) = pos0(jj) + (epochDur(jj)/60) .* delPos(jj);
 end
 for jjj = 1:length(delPos)/2
     subplot(3, 2, jjj);
@@ -32,8 +42,8 @@ for jjj = 1:length(delPos)/2
     set(gca, 'TickLabelInterpreter', 'latex','FontSize', 12);
     grid on;
     axis tight;
-    title(['Stim Duration: ', num2str(legDur(jjj)),' (s)'], 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
-    sgtitle({['LC14 > GC7b || Flies: ', num2str(info.analysis{1,1}.numFlies)], stim}, 'FontSize', 14, 'FontName', 'Times New Roman', 'Interpreter', 'none');
+    title({[char(epochNames(jjj))],['Velocity: ',num2str(delPos(jjj))]}, 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
+    sgtitle({['LC14 > GC7b || Flies: ', num2str(info.analysis{1,1}.numFlies)], param.stim}, 'FontSize', 14, 'FontName', 'Times New Roman', 'Interpreter', 'none');
     xlabel('$x^\circ$','FontSize', 16, 'Interpreter', 'latex');
     ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$','FontSize', 20, 'Interpreter', 'latex');
     xlim([-135,135])

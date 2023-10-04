@@ -26,7 +26,7 @@ yline(0,'-.')
 % Legend
 epochNames = cellstr(exp.param_file(3, 3:end)); % do I want to do this like how I did epochDur instead?
 epochDur = [exp.params(:).duration];
-epochDur = epochDur(param.interleave_epochs+1:end);
+legDur = epochDur(param.interleave_epochs+1:end);
 
 % Formatting
 set(gca, 'TickLabelInterpreter', 'latex','FontSize', 12);

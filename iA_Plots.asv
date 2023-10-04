@@ -41,7 +41,7 @@ if isempty(promptAns2)
     [Fig_01] = genRespSEMv2(exp, info, param);
     switch length(stim)
         case 12 % Fig. 02 vsweep15_480 Subplots with pos in x-axis
-            [Fig_02] = vsweep15Xpos(exp, info, param);
+            [Fig_02, pos0, delPos, stimPos, stimEndPos] = vsweep15Xpos(TimeXs, data, errorBars, exp, info, param, stim, epochNames, epochDur, colors);
         case 21 % Fig. 03 AllisonContrastBars01 Plot with pos in x-axis
             % The bars don't move in this plot
             [Fig_03] = ContrastBars01(data, errorBars, epochNames, exp, info, param, stim, TimeXs, epochDur, colors);
@@ -102,7 +102,7 @@ else
             pngFileF2 = fullfile(savePathFigs, [fig02, '.png']);
             % Plot/ save if file has not been analyzed
             if ~isfile(pngFileF2)
-                [Fig_02] = vsweep15Xpos(exp, info, param);
+                [Fig_02, pos0, delPos, stimPos, stimEndPos] = vsweep15Xpos(TimeXs, data, errorBars, exp, info, param, stim, epochNames, epochDur, colors);
                 saveas( gcf,fullfile(savePathFigs, [fig02, '.png']),'png')
                 disp('Fig. 02 Saved')
             else % Fig. 02 already exists

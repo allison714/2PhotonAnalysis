@@ -40,12 +40,12 @@ yline(0,'-')
 set(gca, 'TickLabelInterpreter', 'latex', 'FontSize', 12);
 grid on;
 axis tight;
-sgtitle({['LC14 > GC7b || Flies: ', num2str(info.analysis{1,1}.numFlies)], param.stim}, 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
+sgtitle({[num2str(param.cellType),' > ',num2str(param.sensor),' || Flies: ', num2str(info.analysis{1,1}.numFlies)], param.stim}, 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 xlabel('$x^\circ$', 'FontSize', 20, 'Interpreter', 'latex');
 xticks(-90:10:90);  % Set the x-ticks from -90 to 90 in increments of 10
 xticklabels(-90:10:90);  % Use the same values for x-tick labels
 ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$', 'FontSize', 28, 'Interpreter', 'latex');
-legend(['Stim Duration: ', num2str(epochDur(mm)), ' (s)'],'Location','southeast', 'FontName', 'Times New Roman', 'FontSize', 12)
+legend(['Stim Duration: ', num2str(epochDur(mm)/60), ' (s)'],'Location','southeast', 'FontName', 'Times New Roman', 'FontSize', 12)
 xlim([-95,95]);
 
 %------------------------------------------------------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ yline(0,'-')
 set(gca, 'TickLabelInterpreter', 'latex', 'FontSize', 12);
 grid on;
 axis tight;
-sgtitle({['LC14 > GC7b || Flies: ', num2str(info.analysis{1,1}.numFlies)], param.stim}, 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
+sgtitle({[num2str(param.cellType),' > ',num2str(param.sensor),' || Flies: ', num2str(info.analysis{1,1}.numFlies)], param.stim}, 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 xlabel('$x^\circ$', 'FontSize', 20, 'Interpreter', 'latex');
 xticks(-90:10:90);  % Set the x-ticks from -90 to 90 in increments of 10
 xticklabels(-90:10:90);  % Use the same values for x-tick labels
@@ -78,7 +78,7 @@ legend(['Stim Duration: ', num2str(epochDur(mm)), ' (s)'],'Location','southeast'
 xlim([-95,95]);
 subplot(2,1,2) % SECOND SUBPLOT
 hold on;
-for nn = size(data, 2)/2:size(data, 2)
+for nn = size(data, 2)/2+1:size(data, 2)
     plot(stimPos{1,nn}, data(:, nn), 'color', colors(nn,:), 'LineWidth', 1.5);
     PlotErrorPatchAC(stimPos{1,nn}, data(:, nn), errorBars(:, nn), colors(nn,:), 'colors', 'FaceAlpha', 0.25);
     xline(pos0(nn), '-.', char(epochNames(nn)), 'DisplayName', char(epochNames(nn)), 'color', colors(nn,:), 'LabelVerticalAlignment', 'top', 'LabelHorizontalAlignment', 'right');
@@ -91,7 +91,7 @@ yline(0,'-')
 set(gca, 'TickLabelInterpreter', 'latex', 'FontSize', 12);
 grid on;
 axis tight;
-sgtitle({['LC14 > GC7b || Flies: ', num2str(info.analysis{1,1}.numFlies)], param.stim}, 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
+sgtitle({[num2str(param.cellType),' > ',num2str(param.sensor),' || Flies: ', num2str(info.analysis{1,1}.numFlies)], param.stim}, 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 xlabel('$x^\circ$', 'FontSize', 20, 'Interpreter', 'latex');
 xticks(-90:10:90);  % Set the x-ticks from -90 to 90 in increments of 10
 xticklabels(-90:10:90);  % Use the same values for x-tick labels

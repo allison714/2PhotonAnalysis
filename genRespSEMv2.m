@@ -22,12 +22,12 @@ xline(0,'-.')
 set(gca, 'TickLabelInterpreter', 'latex','FontSize', 12);
 grid on;
 axis tight;
-% % % % miny = round(min(info.analysis{1, 1}.respMatPlot(:)) + min(info.analysis{1, 1}.respMatPlot(:))/4, 1);
-% % % % maxy = round((round(max(info.analysis{1, 1}.respMatPlot(:)) + max(info.analysis{1, 1}.respMatPlot(:)/4)) * 2) / 2);
-miny = round(round(min(info.analysis{1, 1}.respMatPlot(:)),1 )* 2) / 2;
-maxy = round(max(info.analysis{1, 1}.respMatPlot(:)) * 2) / 2;
-% ylim([rounded_value = round(min(info.analysis{1, 1}.respMatPlot(:)) + min(info.analysis{1, 1}.respMatPlot(:))/4, 1) round((round(max(info.analysis{1, 1}.respMatPlot(:)) + max(info.analysis{1, 1}.respMatPlot(:)/4)) * 2) / 2)])
-ylim([miny maxy])
+% % % % % % miny = round(min(info.analysis{1, 1}.respMatPlot(:)) + min(info.analysis{1, 1}.respMatPlot(:))/4, 1);
+% % % % % % maxy = round((round(max(info.analysis{1, 1}.respMatPlot(:)) + max(info.analysis{1, 1}.respMatPlot(:)/4)) * 2) / 2);
+% % miny = round(round(min(info.analysis{1, 1}.respMatPlot(:)),1 )* 2) / 2;
+% % maxy = round(max(info.analysis{1, 1}.respMatPlot(:)) * 2) / 2;
+% % % ylim([rounded_value = round(min(info.analysis{1, 1}.respMatPlot(:)) + min(info.analysis{1, 1}.respMatPlot(:))/4, 1) round((round(max(info.analysis{1, 1}.respMatPlot(:)) + max(info.analysis{1, 1}.respMatPlot(:)/4)) * 2) / 2)])
+% % ylim([miny maxy])
 title({['LC14 > GC7b || Flies: ', num2str(info.analysis{1,1}.numFlies)], param.stim}, 'FontSize', 20, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 xlabel('t (s)','FontSize', 20, 'Interpreter', 'latex');
 ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$','FontSize', 28, 'Interpreter', 'latex');

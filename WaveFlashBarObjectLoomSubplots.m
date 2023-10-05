@@ -32,7 +32,7 @@ epochDur = epochDur(param.interleave_epochs+1:end);
 set(gca, 'TickLabelInterpreter', 'latex','FontSize', 12);
 grid on;
 axis tight;
-sgtitle({['LC14 > GC7b || Flies: ', num2str(info.analysis{1,1}.numFlies)], [param.stim, ' || Dur: ', num2str(epochDur(1))]}, 'FontSize', 20, 'FontName', 'Times New Roman', 'Interpreter', 'none');
+sgtitle({[num2str(param.cellType),' > ',num2str(param.sensor),' || Flies: ', num2str(info.analysis{1,1}.numFlies)], [param.stim, ' || Dur: ', num2str(epochDur(1)/60),' (s)']}, 'FontSize', 20, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 title('All Epochs', 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 xlabel('t (s)','FontSize', 12, 'Interpreter', 'latex');
 ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$','FontSize', 18, 'Interpreter', 'latex');
@@ -48,7 +48,9 @@ for ii = 1: nEpochs
     set(gca, 'TickLabelInterpreter', 'latex','FontSize', 12);
     grid on;
     axis tight;
-    title({[char(epochNames(ii))],['Velocity: ',num2str(delPos(ii))]}, 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
+    % create this in a for loop for those epochs with velocity
+    % title({[char(epochNames(ii))],['Velocity: ',num2str(delPos(ii))]}, 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
+    title(char(epochNames(ii)), 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
     xlabel('t (s)','FontSize', 12, 'Interpreter', 'latex');
     ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$','FontSize', 18, 'Interpreter', 'latex');
 end

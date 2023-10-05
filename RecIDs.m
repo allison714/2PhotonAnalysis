@@ -2,6 +2,8 @@
 % A. Cairns
 % 09.19.23
 % Let the error happen, don't try to fix the bug, then run the last section
+% Not too proud of this janky broke code but it gives the flyIDs
+% and makes it easy to copy and paste into Excel.
 clc; close all; clear;
 
 %% Dialog Box

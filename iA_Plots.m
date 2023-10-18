@@ -111,8 +111,6 @@ else
         if ~isfile(pngFileF1)
             % Plot Function for generic delf f/f t-trace
             [Fig_01] = genRespSEMv2(exp, info, param);
-            % Plot Function for Fig. 01
-            [Fig_01] = genRespSEMv2(exp, info, param);
             % Save/ Export
             saveas( gcf,fullfile(savePathFigs, [fig01, '.png']),'png')
             disp('Fig. 01 Saved')
@@ -129,7 +127,7 @@ else
                 if ~exist('TimeXs', 'var')
                     [Fig_01] = genRespSEMv2(exp, info, param);
                 end
-                [Fig_02, pos0, delPos, stimPos, stimEndPos] = vsweep15Xpos(TimeXs, data, errorBars, exp, info, param, stim, epochNames, epochDur, colors);
+                [Fig_02] = vsweep15Xpos(exp, info, param);
                 % Save/ Export
                 saveas( gcf,fullfile(savePathFigs, [fig02, '.png']),'png')
                 disp('Fig. 02 Saved')
@@ -198,7 +196,14 @@ else
         else
             disp('-')
         end
-    %%
+        %%
     end
-    disp('Analysis Completed.')
+    disp('Analysis Completed.');
+    % Table of all flyIDs
+    param.fliesTot = unique(param.flyID);
+    tempTable = ones(2,length(param.fliesTot));
+    tempTable(1,:) = linspace(1, length(param.fliesTot), length(param.fliesTot));
+    tempTable(2,:) = param.fliesTot;
+    flyTable = table(cellstr(num2str(transpose(tempTable))), 'VariableNames', {'Fly IDs'});
+    disp(flyTable);
 end

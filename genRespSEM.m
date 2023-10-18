@@ -19,7 +19,7 @@ PlotErrorPatchAC(TimeXs, data(:, :, 1), errorBars(:, :, 1), colors, 'colors', 'F
 set(gca, 'TickLabelInterpreter', 'latex','FontSize', 12);
 grid on;
 axis tight;
-title({['LC14 > GC7b || Flies: ', num2str(info.analysis{1,1}.numFlies)], param.stim}, 'FontSize', 20, 'FontName', 'Times New Roman', 'Interpreter', 'none');
+title({[param.cellType, ' > GC7b || Flies: ', num2str(info.analysis{1,1}.numFlies)], param.stim}, 'FontSize', 20, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 xlabel('t (s)','FontSize', 20, 'Interpreter', 'latex');
 ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$','FontSize', 28, 'Interpreter', 'latex');
 

@@ -196,31 +196,39 @@ else
         else
             disp('-')
         end
-        %% Table of total number of flies, flyIDs, recording frequency, and recording numbers
-        % Is this table legit? Does it show the datapath of ALL in  
-        % existence or just the selected ones from the workspace
-        % ~- temp - delete, new datasets later than 10.17.23 will have this
+        %% Table of all flyIDs
+        % temp - delete, new datasets later than 10.17.23 will have this
         param.fliesTot = unique(param.flyID);
-        % ~- delete above
+        % - delete above
         figTable = sprintf('%s%s%sFtable_%g',cellType,sensor,stim,param.Nrecs);
         pngFileFT = fullfile(savePathFigs, [figTable, '.png']);
         if ~isfile(pngFileFT)
-            flyIDandRecInfo = ones(2, length(param.fliesTot));
-            flyIDandRecInfo(1,:) = linspace(1, length(param.fliesTot), length(param.fliesTot));
-            flyIDandRecInfo(2,:) = param.fliesTot;
+            tempTable = ones(2, length(param.fliesTot));
+            tempTable(1,:) = linspace(1, length(param.fliesTot), length(param.fliesTot));
+            tempTable(2,:) = param.fliesTot;
             [uniqueValues, ~, idx] = unique(param.flyID);
             freq = histcounts(idx, 1:max(idx)+1);
-            flyIDandRecInfo(3,:) = freq;
-            flyIDandRecInfo(4,1) = freq(1);
-            for tT = 2:length(param.fliesTot)
-                flyIDandRecInfo(4,tT) = freq(tT)+flyIDandRecInfo(4,tT-1);
-            end
+            tempTable(3,:) = freq;
             figure;
             sgtitle({[param.cellType, ' > ', param.sensor],stim},'Interpreter', 'none','FontSize',12)
-            uitable('Data', flyIDandRecInfo', 'ColumnName', {'Index', 'FlyIDs', 'fRecs', 'NRecs'},'Position', [135 25 277 340]);
+            uitable('Data', tempTable', 'ColumnName', {'Index', 'FlyIDs', 'Recs'},'Position', [175 25 216 340]);
             saveas( gcf,fullfile(savePathFigs, [figTable, '.png']),'png')
             disp('Fly ID Table Saved')
         end
     end
     disp('Analysis Completed.');
 end
+%%
+tempTable = ones(2, length(param.fliesTot));
+tempTable(1,:) = linspace(1, length(param.fliesTot), length(param.fliesTot));
+tempTable(2,:) = param.fliesTot;
+[uniqueValues, ~, idx] = unique(param.flyID);
+freq = histcounts(idx, 1:max(idx)+1);
+tempTable(3,:) = freq;
+tempTable(4,1) = freq(1);
+for tT = 2:length(idx)-1
+    tempTable(4,tT) = freq(tT)+freq(tT-1);
+end
+figure;
+sgtitle({[param.cellType, ' > ', param.sensor],stim},'Interpreter', 'none','FontSize',12)
+uitable('Data', tempTable', 'ColumnName', {'Index', 'FlyIDs', 'Recs'},'Position', [175 25 216 340]);

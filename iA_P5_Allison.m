@@ -29,9 +29,10 @@ roiExtractionFile = 'WatershedRegionRestrictedRoiExtraction'; % Watershed & Manu
 %  roiExtractionFile = 'ManualRoiExtraction';
 
 % Thresholding on correlations between multiple repetitions of probe stimuli (defaulted at r = .4).
-roiSelectionFile  = 'selectROIbyProbeCorrelationGeneric'; % This will pass ROIs that were consistently responding to the probe regardless of HOW they were responding
+roiSelectionFile  = 'selectROIbyProbeCorrelationGeneric'; % This will pass ROIs that were consistently responding to the probe regardless of HOey were responding
 % roiSelectionFile = ''; % or don't use selection at alls
 % roiSelectionFile = 'selectAnyResponsiveROIs';
+
 
 %% Run Analysis
 analysisFiles = 'PlotTimeTraces'; % This will create a fig and create respMatPlot and respMatSemPlot in your ws which you can use to plot later
@@ -81,12 +82,12 @@ for rr = 1:length(Nrecs)
     param.flyID = flyIDnum;
     disp(['Nrecs = ', num2str(Nrecs(rr)), ' ; FlyID: ', num2str(flyIDnum(rr))])
 end
+param.fliesTot = unique(param.flyID);
 
 % Last minute variables for plots
 param.cellType = cellType;
 param.sensor = sensor;
 param.Nrecs = Nrecs;
-
 
 %% Save/ Export Workspace
 % fileName = [cellType, sensor, stim, '_', savetime, '.mat'];

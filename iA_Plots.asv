@@ -30,6 +30,10 @@ if isempty(promptAns2)
         disp([wsDir, ' was selected.']);
     end
     param.stim = stim;
+    % TEMP: DELETE WHEN WORKSPACES ARE OLDER THAN 10.04.23
+    param.sensor = sensor;
+    param.cellType = cellType;
+
     savePathFigs = ['G:\.shortcut-targets-by-id\14uKDX4lMhjd5bJ4DSGt4R7i5XHY2c-V7\The Clark Lab\Completed Analysis\Psycho5 CA\', cellType,'\'];
     %% II. Plot Figures [Table of Contents]
     % Fig. 01 Resp & SEM Plot for N Flies
@@ -50,6 +54,33 @@ if isempty(promptAns2)
             [Fig_05] = fullBarSweep4D(exp,info,param);
         otherwise
             disp('No extra plots exist for this stim') % or display a default message
+    end
+    %% Table of total number of flies, flyIDs, recording frequency, and recording numbers
+    % Is this table legit? Does it show the datapath of ALL in
+    % existence or just the selected ones from the workspace 10.17.23
+    % damn there is something up with this, maybe make it so it will
+    % show ALL the data...figure out wassup
+    % ~- temp - delete, new datasets later than 10.17.23 will have this
+    param.fliesTot = unique(param.flyID);
+    % ~- delete above
+    figTable = sprintf('%s%s%sFtable_%g',cellType,sensor,stim,param.Nrecs);
+    pngFileFT = fullfile(savePathFigs, [figTable, '.png']);
+    if ~isfile(pngFileFT)
+        flyIDandRecInfo = ones(2, length(param.fliesTot));
+        flyIDandRecInfo(1,:) = linspace(1, length(param.fliesTot), length(param.fliesTot));
+        flyIDandRecInfo(2,:) = param.fliesTot;
+        [uniqueValues, ~, idx] = unique(param.flyID);
+        freq = histcounts(idx, 1:max(idx)+1);
+        flyIDandRecInfo(3,:) = freq;
+        flyIDandRecInfo(4,1) = freq(1);
+        for tT = 2:length(param.fliesTot)
+            flyIDandRecInfo(4,tT) = freq(tT)+flyIDandRecInfo(4,tT-1);
+        end
+        figure;
+        sgtitle({[param.cellType, ' > ', param.sensor],stim},'Interpreter', 'none','FontSize',12)
+        uitable('Data', flyIDandRecInfo', 'ColumnName', {'Index', 'FlyIDs', 'fRecs', 'NRecs'},'Position', [135 25 277 340]);
+        saveas( gcf,fullfile(savePathFigs, [figTable, '.png']),'png')
+        disp('Fly ID Table Saved')
     end
     %% ---------------------------------------------------------------------------------------------------------------------------------------
     %%               --- OPTION (b) --- Automatically select folder and the code will only analyze new workspace.mat files ---
@@ -196,39 +227,33 @@ else
         else
             disp('-')
         end
-        %% Table of all flyIDs
-        % temp - delete, new datasets later than 10.17.23 will have this
+        %% Table of total number of flies, flyIDs, recording frequency, and recording numbers
+        % Is this table legit? Does it show the datapath of ALL in
+        % existence or just the selected ones from the workspace 10.17.23
+        % damn there is something up with this, maybe make it so it will
+        % show ALL the data...figure out wassup
+        % ~- temp - delete, new datasets later than 10.17.23 will have this
         param.fliesTot = unique(param.flyID);
-        % - delete above
+        % ~- delete above
         figTable = sprintf('%s%s%sFtable_%g',cellType,sensor,stim,param.Nrecs);
         pngFileFT = fullfile(savePathFigs, [figTable, '.png']);
         if ~isfile(pngFileFT)
-            tempTable = ones(2, length(param.fliesTot));
-            tempTable(1,:) = linspace(1, length(param.fliesTot), length(param.fliesTot));
-            tempTable(2,:) = param.fliesTot;
+            flyIDandRecInfo = ones(2, length(param.fliesTot));
+            flyIDandRecInfo(1,:) = linspace(1, length(param.fliesTot), length(param.fliesTot));
+            flyIDandRecInfo(2,:) = param.fliesTot;
             [uniqueValues, ~, idx] = unique(param.flyID);
             freq = histcounts(idx, 1:max(idx)+1);
-            tempTable(3,:) = freq;
+            flyIDandRecInfo(3,:) = freq;
+            flyIDandRecInfo(4,1) = freq(1);
+            for tT = 2:length(param.fliesTot)
+                flyIDandRecInfo(4,tT) = freq(tT)+flyIDandRecInfo(4,tT-1);
+            end
             figure;
             sgtitle({[param.cellType, ' > ', param.sensor],stim},'Interpreter', 'none','FontSize',12)
-            uitable('Data', tempTable', 'ColumnName', {'Index', 'FlyIDs', 'Recs'},'Position', [175 25 216 340]);
+            uitable('Data', flyIDandRecInfo', 'ColumnName', {'Index', 'FlyIDs', 'fRecs', 'NRecs'},'Position', [135 25 277 340]);
             saveas( gcf,fullfile(savePathFigs, [figTable, '.png']),'png')
             disp('Fly ID Table Saved')
         end
     end
     disp('Analysis Completed.');
 end
-%%
-tempTable = ones(2, length(param.fliesTot));
-tempTable(1,:) = linspace(1, length(param.fliesTot), length(param.fliesTot));
-tempTable(2,:) = param.fliesTot;
-[uniqueValues, ~, idx] = unique(param.flyID);
-freq = histcounts(idx, 1:max(idx)+1);
-tempTable(3,:) = freq;
-tempTable(4,1) = freq(1);
-for tT = 2:length(idx)-1
-    tempTable(4,tT) = freq(tT)+freq(tT-1);
-end
-figure;
-sgtitle({[param.cellType, ' > ', param.sensor],stim},'Interpreter', 'none','FontSize',12)
-uitable('Data', tempTable', 'ColumnName', {'Index', 'FlyIDs', 'Recs'},'Position', [175 25 216 340]);

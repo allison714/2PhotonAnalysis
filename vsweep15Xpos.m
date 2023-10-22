@@ -51,8 +51,8 @@ for jjj = 1:length(delPos)/2
     xlabel('$x^\circ$','FontSize', 16, 'Interpreter', 'latex');
     ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$','FontSize', 20, 'Interpreter', 'latex');
     xlim([-135,135])
-    miny = round(round(min(info.analysis{1, 1}.respMatPlot(:)),1 )* 2) / 2; % this is rounding up, it should round down (negative)
-    maxy = round(max(info.analysis{1, 1}.respMatPlot(:)) * 2) / 2;
+    miny = round(round(min(info.analysis{1, 1}.respMatPlot(:)),1 )* 5) / 4; % this is rounding up, it should round down (negative)
+    maxy = round(max(info.analysis{1, 1}.respMatPlot(:)) * 5) / 4;
     ylim([miny-0.3 maxy]) % quick fix for problem on line 54
     legend(epochNames{jjj},epochNames{jjj+6},'**: Start','xx: End','Location','NorthEast');
 end

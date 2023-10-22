@@ -103,8 +103,8 @@ set(gca, 'TickLabelInterpreter', 'latex','FontSize', 12);
 grid on;
 % axis tight;
 xlim([-150 150])
-miny = round(round(min(info.analysis{1, 1}.respMatPlot(:)),1 )* 5) / 4;
-maxy = round(max(info.analysis{1, 1}.respMatPlot(:)) * 5) / 4;
+% miny = round(round(min(info.analysis{1, 1}.respMatPlot(:)),1 )* 5) / 4;
+% maxy = round(max(info.analysis{1, 1}.respMatPlot(:)) * 5) / 4;
 ylim([miny maxy])
 title({['Stim Duration: ', num2str(epochDur(jjj)),' (s)'],['Velocity: ',num2str(delPos(jjj))]}, 'FontSize', 16, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 sgtitle({[num2str(param.cellType),' > ',num2str(param.sensor),' || Flies: ', num2str(info.analysis{1,1}.numFlies)], param.stim}, 'FontSize', 14, 'FontName', 'Times New Roman', 'Interpreter', 'none');

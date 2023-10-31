@@ -2,6 +2,8 @@
 % A. Cairns
 % 09.19.23
 clc; close all; clear;
+
+% Update: Change save file to stim_flyID_rec#
 % Notes:
 % - LC14 > GC7b [Ca2+] = 2.5 mM
 % --> [13:15, 17:33, 35:40] sweepFullBars4d
@@ -29,8 +31,8 @@ roiExtractionFile = 'WatershedRegionRestrictedRoiExtraction'; % Watershed & Manu
 %  roiExtractionFile = 'ManualRoiExtraction';
 
 % Thresholding on correlations between multiple repetitions of probe stimuli (defaulted at r = .4).
-roiSelectionFile  = 'selectROIbyProbeCorrelationGeneric'; % This will pass ROIs that were consistently responding to the probe regardless of HOey were responding
-% roiSelectionFile = ''; % or don't use selection at alls
+ % roiSelectionFile  = 'selectROIbyProbeCorrelationGeneric'; % This will pass ROIs that were consistently responding to the probe regardless of how they were responding
+ roiSelectionFile = ''; % or don't use selection at alls
 % roiSelectionFile = 'selectAnyResponsiveROIs';
 
 

@@ -11,6 +11,7 @@
 % OPTION (b) Automatically select folder and the code will only analyze new
 % workspace.mat files.
 clc; clearvars; close all;
+zz = 1; % test this should change for multiple data files 10.31.23
 promptAns2 = iA_wsDirP5();
 %% ---------------------------------------------------------------------------------------------------------------------------------------
 %% --- OPTION (a) --- Select a specific workspace.mat from directory - good for troubleshooting/ creating new plots
@@ -136,7 +137,7 @@ else
 
         %% Fig. 01 Resp & SEM Plot for N Flies
         % Save Info
-        fig01 = sprintf('%s%s%sF1_%g',cellType,sensor,stim,param.Nrecs);
+        fig01 = sprintf('%s%s%sF1_%g',cellType,sensor,stim,param.Nrecs(zz));
         pngFileF1 = fullfile(savePathFigs, [fig01, '.png']);
         % Plot/ save if file has not been analyzed
         if ~isfile(pngFileF1)
@@ -150,7 +151,7 @@ else
         end
         %% Fig. 02 vsweep15_480 Subplots with pos in x-axis
         if length(stim) == 12 % check for proper stim
-            fig02 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs);
+            fig02 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs(zz));
             pngFileF2 = fullfile(savePathFigs, [fig02, '.png']);
             % Plot/ save if file has not been analyzed
             if ~isfile(pngFileF2)
@@ -172,7 +173,7 @@ else
         %% Fig. 03 AllisonContrastBars01 Plot with pos in x-axis -- ** Create subplot of white and black bars
         % The bars don't move in this plot
         if length(stim) == 21
-            fig03 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs);
+            fig03 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs(zz));
             pngFileF3 = fullfile(savePathFigs, [fig03, '.png']);
             % Plot/ save if file has not been analyzed
             if ~isfile(pngFileF3)
@@ -194,7 +195,7 @@ else
         % Bar amd obj L both start at x = 100
         % dX is either +/- 60
         if length(stim) == 35
-            fig04 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs);
+            fig04 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs(zz));
             pngFileF4 = fullfile(savePathFigs, [fig04, '.png']);
             % Plot/ save if file has not been analyzed
             if ~isfile(pngFileF4)
@@ -211,9 +212,9 @@ else
             % disp('Skipping Fig.03 since Stim is not AllisonContrastBars01')
             disp('--')
         end
-        %%
+        %% Fig. 05 sweepingFullBars_4D_5reps
         if length(stim) == 25
-            fig05 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs);
+            fig05 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs(zz));
             pngFileF5 = fullfile(savePathFigs, [fig05, '.png']);
             % Plot/ save if file has not been analyzed
             if ~isfile(pngFileF5)
@@ -235,7 +236,7 @@ else
         % ~- temp - delete, new datasets later than 10.17.23 will have this
         param.fliesTot = unique(param.flyID);
         % ~- delete above
-        figTable = sprintf('%s%s%sFtable_%g',cellType,sensor,stim,param.Nrecs);
+        figTable = sprintf('%s%s%sFtable_%g',cellType,sensor,stim,param.Nrecs(zz));
         pngFileFT = fullfile(savePathFigs, [figTable, '.png']);
         if ~isfile(pngFileFT)
             flyIDandRecInfo = ones(2, length(param.fliesTot));

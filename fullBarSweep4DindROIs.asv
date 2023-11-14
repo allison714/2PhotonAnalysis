@@ -3,9 +3,9 @@
 % 10.03.23
 
 %% Fig. 05b  Individual ROIs: delF/F(position in degrees)
-function [Fig_05b] = fullBarSweep4DindROIs(exp, info, param)
+function [Fig_05b, fig_05c] = fullBarSweep4DindROIs(exp, info, param)
 
-% Info: There are N flies and each fly has a 4x'M' double 
+% Info: There are N flies and each fly has a 4x'M' double
 % (the four rows are epochs: Rbar, Lbar, Ubar, Dbar.
 % 'M' is ROIs per fly which varies for each fly,
 % i.e. some flies have M=21 ROIs, some have M=34, etc)
@@ -22,7 +22,7 @@ Lbar = [];
 Dbar = [];
 Ubar = [];
 
-%% Create Matrices: 'totData' = all the data, 'X'bar for each epoch (X=R,L,D,U) 
+%% I. Create Matrices: 'totData' = all the data, 'X'bar for each epoch (X=R,L,D,U)
 % for loop to create a matrix, 'ROIcolEpochRow'
 % totData is a cell where each col is a diff ROI, rows are epochs, and vals are delF/F
 for flyfly = 1:Nflies
@@ -42,7 +42,8 @@ for ii = 1:4:numROIs
     Ubar = [Ubar; totData(ii+3)];
 end
 
-%% Convert t (sec) -> x (degrees)
+%% II. Plots 'Fig_05b' and 'Fig_05c'
+% Convert t (sec) -> x (degrees)
 epochProbeDur = [exp.params(:).duration];
 epochDur = epochProbeDur(param.interleave_epochs+1:end);
 pos0 = [exp.params(:).relativeX];
@@ -57,7 +58,7 @@ for jj = 1:length(delPos)
 end
 
 %% Plot 1: Rbar and Lbar
-figure;
+Fig_05b = figure;
 for jj = 1:length(Rbar)
     subplot(2,1,1); hold on; % Rbar subplot
     hold on;
@@ -78,22 +79,11 @@ for jj = 1:length(Rbar)
     ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$', 'Interpreter', 'latex');
     grid on;
     xlim([-150 250])
-
-    % Formatting
-    % set(gca, 'TickLabelInterpreter', 'latex','FontSize', 12);
-
-
-    % miny = round(round(min(info.analysis{1, 1}.respMatPlot(:)),1 )* 5) / 4;
-    % maxy = round(max(info.analysis{1, 1}.respMatPlot(:)) * 5) / 4;
-    % ylim([miny maxy])
-    % sgtitle({[cellType, ' > ', sensor, ' || Flies: ', num2str(info.analysis{1,1}.numFlies)], param.stim}, 'FontSize', 14, 'FontName', 'Times New Roman', 'Interpreter', 'none');
-    % legend(epochNames{jjj},epochNames{jjj+1},'**: Start','xx: End','Location','NorthEast')
-
 end
 sgtitle({[num2str(param.cellType),' > ',num2str(param.sensor),' || Flies: ', num2str(info.analysis{1,1}.numFlies),' ||  totROIs = ', num2str(numROIs)], param.stim}, 'FontSize', 14, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 
 
-% Convert t -> y
+% Convert t (sec) -> y (degrees)
 pos0y = [exp.params(:).relativeY];
 pos0y = pos0y(param.interleave_epochs+1:end);
 delPosy = [exp.params(:).dY];
@@ -104,7 +94,7 @@ for jj = 1:length(delPosy)
     stimPosy{1,jj} = pos0y(jj) + t_s * delPosy(jj);
     stimEndPosy(jj) = pos0y(jj) + (epochDur(jj)/60) .* delPosy(jj);
 end
-figure;
+Fig_05c = figure;
 for kk = 1:length(Rbar)
     subplot(2,1,1); hold on;% Dbar subplot
     plot(stimPosy{1,3},Dbar{kk,1})
@@ -129,6 +119,3 @@ for kk = 1:length(Rbar)
 end
 sgtitle({[num2str(param.cellType),' > ',num2str(param.sensor),' || Flies: ', num2str(info.analysis{1,1}.numFlies),' ||  totROIs = ', num2str(numROIs)], param.stim}, 'FontSize', 14, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 end
-
-
-

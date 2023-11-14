@@ -173,7 +173,7 @@ else
         %% Fig. 03 AllisonContrastBars01 Plot with pos in x-axis -- ** Create subplot of white and black bars
         % The bars don't move in this plot
         if length(stim) == 21
-            fig03 = sprintf('%s%s%sF3_%g',cellType,sensor,stim,param.Nrecs(zz));
+            fig03 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs(zz));
             pngFileF3 = fullfile(savePathFigs, [fig03, '.png']);
             % Plot/ save if file has not been analyzed
             if ~isfile(pngFileF3)
@@ -195,7 +195,7 @@ else
         % Bar amd obj L both start at x = 100
         % dX is either +/- 60
         if length(stim) == 35
-            fig04 = sprintf('%s%s%sF4_%g',cellType,sensor,stim,param.Nrecs(zz));
+            fig04 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs(zz));
             pngFileF4 = fullfile(savePathFigs, [fig04, '.png']);
             % Plot/ save if file has not been analyzed
             if ~isfile(pngFileF4)
@@ -214,7 +214,7 @@ else
         end
         %% Fig. 05 sweepingFullBars_4D_5reps
         if length(stim) == 25
-            fig05 = sprintf('%s%s%sF5_%g',cellType,sensor,stim,param.Nrecs(zz));
+            fig05 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs(zz));
             pngFileF5 = fullfile(savePathFigs, [fig05, '.png']);
             % Plot/ save if file has not been analyzed
             if ~isfile(pngFileF5)
@@ -225,24 +225,21 @@ else
                 % clc % --- might want to unblock when dataset gets big
                 disp([wsFileName, '-'])
             end
-            % vvv --- Implement this above 11.14.23 --- vvv
-            fig05b = sprintf('%s%s%sF5b_%g',cellType,sensor,stim,param.Nrecs(zz));
-            pngFileF5b = fullfile(savePathFigs, [fig05b, '.png']);
-            fig05c = sprintf('%s%s%sF5c_%g',cellType,sensor,stim,param.Nrecs(zz));
-            pngFileF5c = fullfile(savePathFigs, [fig05c, '.png']);
+        else
+            disp('-')
+            fig05 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs(zz));
+            pngFileF5 = fullfile(savePathFigs, [fig05, '.png']);
             % Plot/ save if file has not been analyzed
-            if ~isfile(pngFileF5b)
-                [Fig_05b, Fig_05c] = fullBarSweep4DindROIs(exp, info, param);
-                saveas( Fig_05b,fullfile(savePathFigs, [fig05b, '.png']),'png')
-                saveas( Fig_05c,fullfile(savePathFigs, [fig05c, '.png']),'png')
-                disp('Figs. 05b, 05c Saved')
+            if ~isfile(pngFileF5)
+                [Fig_05] = fullBarSweep4D(exp,info,param);
+                saveas( gcf,fullfile(savePathFigs, [fig05, '.png']),'png')
+                disp('Fig. 05 Saved')
             else
                 % clc % --- might want to unblock when dataset gets big
                 disp([wsFileName, '-'])
             end
         else
             disp('-')
-            % ^^^ --- Implement this above 11.14.23 --- ^^^
         end
         %% Table of total number of flies, flyIDs, recording frequency, and recording numbers
         % Is this table legit? Does it show the datapath of ALL in

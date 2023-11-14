@@ -1,11 +1,11 @@
 % sweepingFullBars_4D_5reps Imaging Analysis
 % A. Cairns
-% 10.03.23
+% 11.11.23
 
 %% Fig. 05b  Individual ROIs: delF/F(position in degrees)
-function [Fig_05b, fig_05c] = fullBarSweep4DindROIs(exp, info, param)
+function [Fig_05b, Fig_05c] = fullBarSweep4DindROIs(exp, info, param)
 
-% Info: There are N flies and each fly has a 4x'M' double 
+% Info: There are N flies and each fly has a 4x'M' double
 % (the four rows are epochs: Rbar, Lbar, Ubar, Dbar.
 % 'M' is ROIs per fly which varies for each fly,
 % i.e. some flies have M=21 ROIs, some have M=34, etc)
@@ -13,7 +13,6 @@ function [Fig_05b, fig_05c] = fullBarSweep4DindROIs(exp, info, param)
 % Variables
 Nflies = size(info.analysis{1,1}.indFly, 2); % # flies
 t_s = info.analysis{1,1}.timeX/1000; % time in sec
-% colors = linspecer(NEpochs,'sequential');
 
 % Dummy Variables
 totData = [];
@@ -22,7 +21,7 @@ Lbar = [];
 Dbar = [];
 Ubar = [];
 
-%% Create Matrices: 'totData' = all the data, 'X'bar for each epoch (X=R,L,D,U) 
+%% I. Create Matrices: 'totData' = all the data, 'X'bar for each epoch (X=R,L,D,U)
 % for loop to create a matrix, 'ROIcolEpochRow'
 % totData is a cell where each col is a diff ROI, rows are epochs, and vals are delF/F
 for flyfly = 1:Nflies
@@ -42,7 +41,8 @@ for ii = 1:4:numROIs
     Ubar = [Ubar; totData(ii+3)];
 end
 
-%% Convert t (sec) -> x (degrees)
+%% II. Plots 'Fig_05b' and 'Fig_05c'
+% Convert t (sec) -> x (degrees)
 epochProbeDur = [exp.params(:).duration];
 epochDur = epochProbeDur(param.interleave_epochs+1:end);
 pos0 = [exp.params(:).relativeX];
@@ -56,15 +56,15 @@ for jj = 1:length(delPos)
     stimEndPos(jj) = pos0(jj) + (epochDur(jj)/60) .* delPos(jj);
 end
 
-%% Plot 1: Rbar and Lbar
-Fig_05b = figure;
+%% Plot 'Fig_05b': Rbar and Lbar
+Fig_05b = figure('Units', 'normalized', 'OuterPosition', [0, 0, 1, 1]);
 for jj = 1:length(Rbar)
     subplot(2,1,1); hold on; % Rbar subplot
     hold on;
     plot(stimPos{1,1},Rbar{jj,1})
     title('Lbar', 'Interpreter', 'latex')
-    xline(-135, ':')
-    xline(135, ':')
+    xline(-135, '-')
+    xline(135, '-')
     xlabel('$x^\circ$', 'Interpreter', 'latex');
     ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$', 'Interpreter', 'latex');
     grid on;
@@ -72,8 +72,8 @@ for jj = 1:length(Rbar)
     subplot(2,1,2); hold on; % Lbar subplot
     plot(stimPos{1,2},Lbar{jj,1})
     title('Rbar', 'Interpreter', 'latex')
-    xline(-135, ':')
-    xline(135, ':')
+    xline(-135, '-')
+    xline(135, '-')
     xlabel('$x^\circ$', 'Interpreter', 'latex');
     ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$', 'Interpreter', 'latex');
     grid on;
@@ -81,8 +81,7 @@ for jj = 1:length(Rbar)
 end
 sgtitle({[num2str(param.cellType),' > ',num2str(param.sensor),' || Flies: ', num2str(info.analysis{1,1}.numFlies),' ||  totROIs = ', num2str(numROIs)], param.stim}, 'FontSize', 14, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 
-
-% Convert t (sec) -> y (degrees)
+%% Convert t (sec) -> y (degrees)
 pos0y = [exp.params(:).relativeY];
 pos0y = pos0y(param.interleave_epochs+1:end);
 delPosy = [exp.params(:).dY];
@@ -93,13 +92,15 @@ for jj = 1:length(delPosy)
     stimPosy{1,jj} = pos0y(jj) + t_s * delPosy(jj);
     stimEndPosy(jj) = pos0y(jj) + (epochDur(jj)/60) .* delPosy(jj);
 end
-Fig_05c = figure;
+
+%% Plot 'Fig_05c': Rbar and Lbar
+Fig_05c = figure('Units', 'normalized', 'OuterPosition', [0, 0, 1, 1]);
 for kk = 1:length(Rbar)
     subplot(2,1,1); hold on;% Dbar subplot
     plot(stimPosy{1,3},Dbar{kk,1})
     title('Dbar', 'Interpreter', 'latex')
-    xline(-60, ':')
-    xline(60, ':')
+    xline(-60, '-')
+    xline(60, '-')
     xlabel('$x^\circ$', 'Interpreter', 'latex');
     ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$', 'Interpreter', 'latex');
     xlim([-175 240])
@@ -107,8 +108,8 @@ for kk = 1:length(Rbar)
     subplot(2,1,2); hold on; % Ubar subplot
     plot(stimPosy{1,4},Ubar{kk,1})
     title('Ubar', 'Interpreter', 'latex')
-    xline(-60, ':')
-    xline(60, ':')
+    xline(-60, '-')
+    xline(60, '-')
     xlabel('$x^\circ$', 'Interpreter', 'latex');
     ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$', 'Interpreter', 'latex');
     grid on;

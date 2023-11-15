@@ -64,7 +64,11 @@ if isempty(promptAns2)
     % ~- temp - delete, new datasets later than 10.17.23 will have this
     param.fliesTot = unique(param.flyID);
     % ~- delete above
-    figTable = sprintf('%s%s%sFtable_%g',cellType,sensor,stim,param.Nrecs);
+    if ~zz
+        figTable = sprintf('%s%s%sFtable_%g',cellType,sensor,stim,param.Nrecs);
+    else
+        figTable = sprintf('%s%s%sFtable_%g',cellType,sensor,stim,param.Nrecs(zz));
+    end
     pngFileFT = fullfile(savePathFigs, [figTable, '.png']);
     if ~isfile(pngFileFT)
         flyIDandRecInfo = ones(2, length(param.fliesTot));
@@ -137,7 +141,14 @@ else
 
         %% Fig. 01 Resp & SEM Plot for N Flies
         % Save Info
-        fig01 = sprintf('%s%s%sF1_%g',cellType,sensor,stim,param.Nrecs(zz));
+        [A,B] = size(Nrecs);
+        if size(B) > 1
+            fig01 = sprintf('%s%s%sF1_%g',cellType,sensor,stim,param.Nrecs(size(1,zz)));
+        else
+            fig01 = sprintf('%s%s%sF1_%g',cellType,sensor,stim,'X');
+        end
+        %
+        % fig01 = sprintf('%s%s%sF1_%g',cellType,sensor,stim,param.Nrecs(zz));
         pngFileF1 = fullfile(savePathFigs, [fig01, '.png']);
         % Plot/ save if file has not been analyzed
         if ~isfile(pngFileF1)
@@ -151,7 +162,19 @@ else
         end
         %% Fig. 02 vsweep15_480 Subplots with pos in x-axis
         if length(stim) == 12 % check for proper stim
-            fig02 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs(zz));
+
+            if size(B) > 1
+                fig02 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs(zz));
+                fig02b = sprintf('%s%s%sF2b_%g',cellType,sensor,stim,param.Nrecs(zz));
+                fig02c = sprintf('%s%s%sF2c_%g',cellType,sensor,stim,param.Nrecs(zz));
+            else
+                fig02 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,'V');
+                fig02b = sprintf('%s%s%sF2b_%g',cellType,sensor,stim,'V');
+                fig02c = sprintf('%s%s%sF2c_%g',cellType,sensor,stim,'V');
+
+            end
+
+            % fig02 = sprintf('%s%s%sF2_%g',cellType,sensor,stim,param.Nrecs(zz));
             pngFileF2 = fullfile(savePathFigs, [fig02, '.png']);
             % Plot/ save if file has not been analyzed
             if ~isfile(pngFileF2)
@@ -166,6 +189,25 @@ else
             else % Fig. 02 already exists
                 disp('--')
             end
+
+            % fig02b = sprintf('%s%s%sF2b_%g',cellType,sensor,stim,param.Nrecs(zz));
+            pngFileF2b = fullfile(savePathFigs, [fig02b, '.png']);
+            pngFileF2c = fullfile(savePathFigs, [fig02c, '.png']);
+            % Plot/ save if file has not been analyzed
+            if ~isfile(pngFileF2b)
+                % [Fig_02b,Fig_02c] = vsweep15XposIndROIs(exp, info, param);
+                if ~exist('TimeXs', 'var')
+                    [Fig_01] = genRespSEMv2(exp, info, param);
+                end
+                [Fig_02b,Fig_02c] = vsweep15XposIndROIs(exp, info, param);
+                % Save/ Export
+                saveas( Fig_02b,fullfile(savePathFigs, [fig02b, '.png']),'png')
+                saveas( Fig_02c,fullfile(savePathFigs, [fig02c, '.png']),'png')
+                disp('Fig. 02 Saved')
+            else % Fig. 02 already exists
+                disp('--')
+            end
+
         else
             % disp('Skipping Fig.02 since Stim is not vsweep15-480')
             disp('--')
@@ -214,7 +256,13 @@ else
         end
         %% Fig. 05 sweepingFullBars_4D_5reps
         if length(stim) == 25
-            fig05 = sprintf('%s%s%sF5_%g',cellType,sensor,stim,param.Nrecs(zz));
+            if size(B) > 1
+                fig05 = sprintf('%s%s%sF5_%g',cellType,sensor,stim,param.Nrecs(zz));
+            else
+                fig05 = sprintf('%s%s%sF5_%g',cellType,sensor,stim,'X');
+
+            end
+
             pngFileF5 = fullfile(savePathFigs, [fig05, '.png']);
             % Plot/ save if file has not been analyzed
             if ~isfile(pngFileF5)
@@ -226,9 +274,16 @@ else
                 disp([wsFileName, '-'])
             end
             % vvv --- Implement this above 11.14.23 --- vvv
-            fig05b = sprintf('%s%s%sF5b_%g',cellType,sensor,stim,param.Nrecs(zz));
+            if size(B) > 1
+                fig05b = sprintf('%s%s%sF5b_%g',cellType,sensor,stim,param.Nrecs(zz));
+                fig05c = sprintf('%s%s%sF5c_%g',cellType,sensor,stim,param.Nrecs(zz));
+            else
+                fig05b = sprintf('%s%s%sF5b_%g',cellType,sensor,stim,'Y');
+                fig05c = sprintf('%s%s%sF5c_%g',cellType,sensor,stim,'Y');
+            end
+
             pngFileF5b = fullfile(savePathFigs, [fig05b, '.png']);
-            fig05c = sprintf('%s%s%sF5c_%g',cellType,sensor,stim,param.Nrecs(zz));
+            % fig05c = sprintf('%s%s%sF5c_%g',cellType,sensor,stim,param.Nrecs(zz));
             pngFileF5c = fullfile(savePathFigs, [fig05c, '.png']);
             % Plot/ save if file has not been analyzed
             if ~isfile(pngFileF5b)
@@ -252,7 +307,15 @@ else
         % ~- temp - delete, new datasets later than 10.17.23 will have this
         param.fliesTot = unique(param.flyID);
         % ~- delete above
-        figTable = sprintf('%s%s%sFtable_%g',cellType,sensor,stim,param.Nrecs(zz));
+
+        if size(B) > 1
+            figTable = sprintf('%s%s%sFtable_%g',cellType,sensor,stim,param.Nrecs(zz));
+        else
+            figTable = sprintf('%s%s%sFtable_%g',cellType,sensor,stim,'Z');
+        end
+
+
+        % figTable = sprintf('%s%s%sFtable_%g',cellType,sensor,stim,param.Nrecs(zz));
         pngFileFT = fullfile(savePathFigs, [figTable, '.png']);
         if ~isfile(pngFileFT)
             flyIDandRecInfo = ones(2, length(param.fliesTot));

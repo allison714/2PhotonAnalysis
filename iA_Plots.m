@@ -46,13 +46,15 @@ if isempty(promptAns2)
     switch length(stim)
         case 12 % Fig. 02 vsweep15_480 Subplots with pos in x-axis
             [Fig_02] = vsweep15Xpos(exp, info, param);
+            [Fig_02b,Fig_02c] = vsweep15XposIndROIs(exp, info, param);
         case 21 % Fig. 03 AllisonContrastBars01 Plot with pos in x-axis
             % The bars don't move in this plot
-            [Fig_03, Fig_03b] = ContrastBars01(exp, info, param);
+            [Fig_03, Fig_03b, Fig03c] = ContrastBars01(exp, info, param);
         case 35 % Fig. 04 WaveFlashBarObjectLoom_x20y-20_3rep t Subplots
             [Fig_04] = WaveFlashBarObjectLoomSubplots(exp, info, param);
         case 25 % Fig. 05sweepingFullBars_4D_5reps x & y pos Subplots
             [Fig_05] = fullBarSweep4D(exp,info,param);
+            [Fig_05b, Fig_05c] = fullBarSweep4DindROIs(exp, info, param);
         otherwise
             disp('No extra plots exist for this stim') % or display a default message
     end
@@ -217,13 +219,19 @@ else
         if length(stim) == 21
             fig03 = sprintf('%s%s%sF3_%g',cellType,sensor,stim,param.Nrecs(zz));
             pngFileF3 = fullfile(savePathFigs, [fig03, '.png']);
+            fig03b = sprintf('%s%s%sF3_%g',cellType,sensor,stim,param.Nrecs(zz));
+            pngFileF3b = fullfile(savePathFigs, [fig03b, '.png']);
+            fig03c = sprintf('%s%s%sF3_%g',cellType,sensor,stim,param.Nrecs(zz));
+            pngFileF3c = fullfile(savePathFigs, [fig03c, '.png']);
             % Plot/ save if file has not been analyzed
-            if ~isfile(pngFileF3)
+            if ~isfile(pngFileF3c)
                 if ~exist('TimeXs', 'var')
                     [Fig_01] = genRespSEMv2(exp, info, param);
                 end
-                [Fig_03, Fig_03b] = ContrastBars01(exp, info, param);
-                saveas( gcf,fullfile(savePathFigs, [fig03, '.png']),'png')
+                [Fig_03, Fig_03b, Fig_03c] = ContrastBars01(exp, info, param);
+                saveas( Fig_03,fullfile(savePathFigs, [fig03, '.png']),'png')
+                saveas( Fig_03b,fullfile(savePathFigs, [fig03b, '.png']),'png')
+                saveas( Fig_03c,fullfile(savePathFigs, [fig03c, '.png']),'png')
                 disp('Fig. 03 Saved')
             else % Fig. 03 already exists
                 disp('-')
@@ -237,7 +245,7 @@ else
         % Bar amd obj L both start at x = 100
         % dX is either +/- 60
         if length(stim) == 35
-            fig04 = sprintf('%s%s%sF4_%g',cellType,sensor,stim,param.Nrecs(zz));
+            fig04 = sprintf('%s%s%sF4_%g',cellType,sensor,stim,param.Nrecs);
             pngFileF4 = fullfile(savePathFigs, [fig04, '.png']);
             % Plot/ save if file has not been analyzed
             if ~isfile(pngFileF4)

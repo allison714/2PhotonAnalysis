@@ -57,7 +57,7 @@ for jj = 1:length(delPos)
 end
 
 %% Plot 'Fig_05b': Rbar and Lbar
-Fig_05b = figure('Units', 'normalized', 'OuterPosition', [0, 0, 1, 1]);
+Fig_05b = figure('Units', 'normalized', 'OuterPosition', [0, 0, 0.65, 1]);
 for jj = 1:length(Rbar)
     subplot(2,1,1); hold on; % Rbar subplot
     hold on;
@@ -94,7 +94,7 @@ for jj = 1:length(delPosy)
 end
 
 %% Plot 'Fig_05c': Rbar and Lbar
-Fig_05c = figure('Units', 'normalized', 'OuterPosition', [0, 0, 1, 1]);
+Fig_05c = figure('Units', 'normalized', 'OuterPosition', [0, 0, 0.65, 1]);
 for kk = 1:length(Rbar)
     subplot(2,1,1); hold on;% Dbar subplot
     plot(stimPosy{1,3},Dbar{kk,1})

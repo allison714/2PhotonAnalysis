@@ -43,7 +43,7 @@ end
 % % Plot mean with error bars (SD and SEM)
 %     errorbar(pos0, meanData, sdData, 'o-', 'LineWidth', 1.5);
 %     errorbar(pos0, meanData, semData, 'o-', 'LineWidth', 1.5);
-%
+% 
 % %---
 
 % Formatting
@@ -63,9 +63,9 @@ legend(['Stim Duration: ', num2str(epochDur(mm)/60), ' (s)'],'Location','southea
 xlim([-95,95]);
 
 xlabel('$x^\circ$', 'FontSize', 20, 'Interpreter', 'latex');
-ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$', 'FontSize', 28, 'Interpreter', 'latex');
-xlim([-95, 95]);
-legend(['Stim Duration: ', num2str(epochDur(mm)), ' (s)'],'Location','southeast', 'FontName', 'Times New Roman', 'FontSize', 12)
+    ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$', 'FontSize', 28, 'Interpreter', 'latex');
+    xlim([-95, 95]);
+    legend({'Mean', 'SD', 'SEM'}, 'Location', 'southeast', 'FontName', 'Times New Roman', 'FontSize', 12);
 
 
 %------------------------------------------------------------------------------------------------------------------------------
@@ -169,9 +169,10 @@ xticks(-90:10:90);  % Set the x-ticks from -90 to 90 in increments of 10
 xticklabels(-90:10:90);  % Use the same values for x-tick labels
 ylabel('$\frac{\Delta F}{F}$ - $(\frac{\Delta F}{F})_{t = 0}$', 'FontSize', 28, 'Interpreter', 'latex');
 xlim([-95,95]);
-legend({'$\sigma$, t = 0 - 1.5 s', 'SEM, t = 0 - 1.5 s', '$\mu$, t = 0 - 1.0 s', '$\mu$, t = 0 - 1.5 s'}, 'Interpreter', 'Latex', 'Location', 'EastOutside', 'FontName', 'Times New Roman', 'FontSize', 12);
+legend({'$\sigma$, t = 0 - 1.5 s', 'SEM, t = 0 - 1.5 s', '$\mu$, t = 0 - 1.0 s', '$\mu$, t = 0 - 1.5 s'}, 'Interpreter', 'Latex', 'Location', 'NorthWest', 'FontName', 'Times New Roman', 'FontSize', 12);
 
-% --- Subplot 2: OFF bars---
+% % % Fig_03d = figure('Units', 'normalized', 'OuterPosition', [0, 0, 1, 1]);
+% Subplot 2: OFF bars
 subplot(3,6,7:12)
 hold on;
 
@@ -200,7 +201,6 @@ xticklabels(-90:10:90);  % Use the same values for x-tick labels
 xlim([-95,95]);
 legend({'$\sigma$, t = 0 - 1.5 s', 'SEM, t = 0 - 1.5 s', '$\mu$, t = 0 - 1.0 s', '$\mu$, t = 0 - 1.5 s'}, 'Interpreter', 'Latex', 'Location', 'EastOutside', 'FontName', 'Times New Roman', 'FontSize', 12);
 
-% --- Subplot 3 ---
 subplot(3,6,13:18)
 hold on;
 

@@ -27,7 +27,7 @@ for jj = 1:length(delPos)
 end
 
 % Create Figure handle to be exported
-Fig_05 = figure('Units', 'normalized', 'OuterPosition', [0, 0, 1, 1]);
+Fig_05 = figure('Units', 'normalized', 'OuterPosition', [0, 0, 0.65, 1]);
 
 % Legend
 epochNames = cellstr(exp.param_file(3, 3:end)); % do I want to do this like how I did epochDur instead?

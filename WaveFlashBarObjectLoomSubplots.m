@@ -10,7 +10,7 @@ delPos = [exp.params(:).dX];
 delPos = delPos(param.interleave_epochs+1:end);
 
 % Plot
-Fig_04 = figure('Units', 'normalized', 'OuterPosition', [0, 0, 1, 1]);
+Fig_04 = figure('Units', 'normalized', 'OuterPosition', [0, 0, 0.65, 1]);
 hold on
 
 % Subplot 1, all epochs in one plot

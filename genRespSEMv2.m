@@ -10,7 +10,7 @@ errorBars = info.analysis{1, 1}.respMatSemPlot;
 TimeXs = info.analysis{1, 1}.timeX / 1000;  % ms to s
 
 % Plot
-Fig_01 = figure('Units', 'normalized', 'OuterPosition', [0, 0, 1, 1]);
+Fig_01 = figure('Units', 'normalized', 'OuterPosition', [0, 0, 0.65, 1]);
 hold on
 for ii = 1: nEpochs
     plot(TimeXs, info.analysis{1, 1}.respMatPlot(:,ii), 'color', colors(ii,:), 'LineWidth', 1.5);

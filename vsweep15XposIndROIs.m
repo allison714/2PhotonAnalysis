@@ -55,7 +55,7 @@ for jj = 1:length(delPos)
     stimEndPos(jj) = pos0(jj) + (epochDur(jj)/60) .* delPos(jj);
 end
 %% Plot 'Fig_05b': v = 15, 30, 60
-Fig_02b = figure('Units', 'normalized', 'OuterPosition', [0, 0, 1, 1]);
+Fig_02b = figure('Units', 'normalized', 'OuterPosition', [0, 0, 0.65, 1]);
 for jj = 1:length(RL15)
     subplot(3,2,1); hold on; % Rbar subplot
     hold on;
@@ -119,7 +119,7 @@ for jj = 1:length(RL15)
 end
 sgtitle({[num2str(param.cellType),' > ',num2str(param.sensor),' || Flies: ', num2str(info.analysis{1,1}.numFlies),' ||  totROIs = ', num2str(numROIs)], param.stim}, 'FontSize', 14, 'FontName', 'Times New Roman', 'Interpreter', 'none');
 %% Plot 'Fig_05c': v = 240 & 480
-Fig_02c = figure('Units', 'normalized', 'OuterPosition', [0, 0, 1, 1]);
+Fig_02c = figure('Units', 'normalized', 'OuterPosition', [0, 0, 0.65, 1]);
 for kk = 1:length(RL15)
     subplot(2,2,1); hold on; % Rbar subplot
     hold on;

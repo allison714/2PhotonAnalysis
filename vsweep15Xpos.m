@@ -19,7 +19,7 @@ stimPos = cell(1, length(delPos));
 stimEndPos = ones(length(delPos),1);
 
 % Create subplots
-Fig_02 = figure('Units', 'normalized', 'OuterPosition', [0, 0, 1, 1]);
+Fig_02 = figure('Units', 'normalized', 'OuterPosition', [0, 0, 0.65, 1]);
 
 for jj = 1:length(delPos)
     stimPos{1,jj} = pos0(jj) + t_s * delPos(jj);
